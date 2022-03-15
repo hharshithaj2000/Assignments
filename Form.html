@@ -37,29 +37,29 @@
                 <option>Mumbai</option>
             </select>
             <br><br>
-            <button type="submit" onclick="submitForm();">Submit</button>
-            <button id="validate" onclick="validateForm();">Validate</button>
+            <button type="button" onclick="submitForm();">Submit</button>
+            <button type="button" onclick="validateForm();">Validate</button>
             <button type="reset">Cancel</button>
-            <button onclick="trying();">Try</button>
+            <button type="button" onclick="trying();">Try</button>
 
         </form>
     </body>
     <script type="text/javascript">
         function submitForm(){
             window.open("success.html");
-        }
+        };
         function validateForm(){
             var input=document.getElementById("fn").value;
             if(input.length>4)
                 document.getElementById("name").innerHTML="OK";
             else
                 document.getElementById("name").innerHTML="Enter valid email address";
-        }
+        };
         function trying(){
             document.getElementById("idn").innerHTML="ELEMENTS BY ID";
             document.getElementsByName("namen")[0].innerHTML="ELEMENTS BY NAME";
             document.getElementsByClassName("classn")[0].innerHTML="ELEMEMTS NY CLASS NAME"
 
-        }
+        };
     </script>
 </html>
