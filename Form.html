@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html{
+                background-color: paleturquoise;
+            }
+        </style>
+        <title>Student Form</title>
+        <h1>Please Fill The Student Form</h1>
+        <a href="https://www.google.com/" target="_blank">Google</a>
+    </head>
+    <body>
+        <p id="idn">Example for getElementbyIdName</p>
+        <p name="namen">Example for getElementsbyName</p>
+        <p class="classn">Example for getElementbyClassName</p>
+        <form>
+            <label>Full Name:</label>
+            <input type="text" id="fn">
+            <div id="name"></div>
+            <br><br>
+            <label>Student:</label>
+            <br>
+            <label for="y">Yes</label>
+            <input type="radio" id="y" name="student" value="YES">
+            <label for="n">No</label>
+            <input type="radio" id="n" name="student" value="NO">
+            <br><br>
+            <label for="c">City:</label>
+            <select id="c">
+                <option>city</option>
+                <option>Hyderabad</option>
+                <option>Chennai</option>
+                <option>Bangalore</option>
+                <option>Delhi</option>
+                <option>Kolkata</option>
+                <option>Mumbai</option>
+            </select>
+            <br><br>
+            <button type="submit" onclick="submitForm();">Submit</button>
+            <button id="validate" onclick="validateForm();">Validate</button>
+            <button type="reset">Cancel</button>
+            <button onclick="trying();">Try</button>
+
+        </form>
+    </body>
+    <script type="text/javascript">
+        function submitForm(){
+            window.open("success.html");
+        }
+        function validateForm(){
+            var input=document.getElementById("fn").value;
+            if(input.length>4)
+                document.getElementById("name").innerHTML="OK";
+            else
+                document.getElementById("name").innerHTML="Enter valid email address";
+        }
+        function trying(){
+            document.getElementById("idn").innerHTML="ELEMENTS BY ID";
+            document.getElementsByName("namen")[0].innerHTML="ELEMENTS BY NAME";
+            document.getElementsByClassName("classn")[0].innerHTML="ELEMEMTS NY CLASS NAME"
+
+        }
+    </script>
+</html>
