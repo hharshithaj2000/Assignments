@@ -1,0 +1,114 @@
+drop table trainee;
+create table trainee(
+    tid numeric,
+    fname varchar(10),
+    lname varchar(10),
+    email varchar(20)
+);
+insert into trainee(tid,fname,lname,email)
+values(1,'harshitha','jagadish','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(2,'shivani','karthik','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(3,'prajwal','ravi','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(4,'heera','ravi','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(5,'sam','john','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(6,'prashant','kumar','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(7,'praveen','raj','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(8,'harsh','raj','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(9,'santhosh','kumar','abc@gmail.com');
+insert into trainee(tid,fname,lname,email)
+values(10,'prem','kumar','abc@gmail.com');
+select * from trainee;
+
+declare
+    t_tid trainee.tid%type;
+    t_fname trainee.fname%type;
+    t_lname trainee.lname%type;
+    t_email trainee.email%type;
+    cursor c is
+        select tid,fname,lname,email from trainee;
+begin
+    open c;
+    loop
+        fetch c into t_tid,t_fname,t_lname,t_email;
+        exit when c%notfound;
+        dbms_output.put_line(t_tid||' '||t_fname||' '||t_lname||' '||t_email||' ');
+    end loop;
+    close c;
+end;
+
+
+
+declare
+    cursor c is 
+        select tid,fname,lname,email from trainee;
+    t c%rowtype;
+begin
+    open c;
+    loop
+        fetch c into t.tid,t.fname,t.lname,t.email;
+        exit when c%notfound;
+        dbms_output.put_line(t.tid||' '||t.fname||' '||t.lname||' '||t.email||' ');
+    end loop;
+end;
+
+
+
+declare
+    cursor c is
+        select * from trainee where fname like 'p%' or fname like 'h%';
+    t c%rowtype;
+begin
+    open c;
+    loop
+        fetch c into t.tid,t.fname,t.lname,t.email;
+        exit when c%notfound;
+        dbms_output.put_line(t.tid||' '||t.fname||' '||t.lname||' '||t.email||' ');
+    end loop;
+    close c;
+end;
+
+
+
+declare
+    cursor c is
+        select * from trainee where fname like 'z%';
+    t c%rowtype;
+begin
+    open c;
+    loop
+        fetch c into t.tid,t.fname,t.lname,t.email;
+        exit when c%notfound;
+        dbms_output.put_line(t.tid||' '||t.fname||' '||t.lname||' '||t.email||' ');
+    end loop;
+    close c;
+exception
+    when NO_DATA_FOUND then
+        dbms_output.put_line('No trainee with name starting from z');
+    when others then 
+        dbms_output.put_line('error!');
+end;
+
+
+
+declare 
+    totalrows numeric;
+begin
+    update trainee
+    set email='xyz@gmail.com';
+    if sql%notfound then
+        dbms_output.put_line('no record found');
+    elsif sql%found then
+        totalrows:=sql%rowcount;
+        dbms_output.put_line(totalrows|| ' records found');
+    end if;
+end;
+
+
