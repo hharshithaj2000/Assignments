@@ -1,0 +1,91 @@
+create table emp(
+    empid numeric primary key,
+    rol varchar(20),
+    loc varchar(20),
+    salary numeric check (salary>0)  
+);
+drop table emp;
+
+insert into emp(empid,rol,loc,salary) 
+values(1,'tester','bangalore',5000);
+insert into emp(empid,rol,loc,salary) 
+values(2,'developer','chennai',6000);
+insert into emp(empid,rol,loc,salary) 
+values(3,'developer','pune',2000);
+insert into emp(empid,rol,loc,salary) 
+values(4,'tester','chennai',7000);
+insert into emp(empid,rol,loc,salary) 
+values(5,'manager','pune',5000);
+insert into emp(empid,rol,loc,salary) 
+values(6,'manager','bangalore',4000);
+insert into emp(empid,rol,loc,salary) 
+values(7,'tester','bangalore',7000);
+insert into emp(empid,rol,loc,salary) 
+values(8,'developer','pune',5000);
+insert into emp(empid,rol,loc,salary) 
+values(9,'tester','chennai',9000);
+insert into emp(empid,rol,loc,salary) 
+values(10,'manager','bangalore',7000);
+
+select * from emp;
+
+select max(salary) from employee 
+where salary<(select max(salary) from employee);
+
+select max(salary),rol from emp
+group by rol;
+
+select count(*) from emp
+where salary>5000;
+
+create or replace procedure detail
+is
+    e_empid emp.empid%type;
+    e_rol emp.rol%type;
+    e_loc emp.loc%type;
+    e_salary emp.salary%type;
+    cursor c is 
+        select empid,rol,loc,salary from emp;
+begin
+    open c;
+    loop
+        fetch c into e_empid,e_rol,e_loc,e_salary;
+        exit when c%notfound;
+        dbms_output.put_line(e_empid||' '||e_rol||' '||e_loc||' '||e_salary);
+    end loop;
+    close c;
+end;
+exec detail;
+
+
+create or replace procedure detail1
+is
+    e emp%rowtype;
+    cursor c is 
+        select empid,rol,loc,salary from emp;
+begin
+    open c;
+    loop
+        fetch c into e.empid,e.rol,e.loc,e.salary;
+        exit when c%notfound;
+        dbms_output.put_line(e.empid||' '||e.rol||' '||e.loc||' '||e.salary);
+    end loop;
+    close c;
+end;
+exec detail1;
+
+
+create or replace function sumofsalary
+return number
+is
+    sos number;
+begin
+    select sum(salary) into sos from emp;
+    return sos;
+end;
+declare
+    s number;
+begin
+    s:=sumofsalary();
+    dbms_output.put_line(s);
+end;
